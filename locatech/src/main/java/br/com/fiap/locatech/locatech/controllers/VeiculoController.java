@@ -6,8 +6,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,9 +45,30 @@ public class VeiculoController {
 	// http://localhost:8080/veiculos/1
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Veiculo>> findVeiculo(@PathVariable("id") Long id) {
-		logger.info("/veiculos/"+id);
+		logger.info("GET > /veiculos/"+id);
 		
 		var veiculos = this.veiculoService.findVeiculoById(id);
 		return ResponseEntity.ok(veiculos);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Void> saveVeiculo(@RequestBody Veiculo veiculo){
+		logger.info("POST > /veiculos/");
+		this.veiculoService.saveVeiculo(veiculo);
+		return ResponseEntity.status(201).build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> updateVeiculo(@PathVariable("id") Long id,@RequestBody Veiculo veiculo){
+		logger.info("PUT > /veiculos/"+id);
+		this.veiculoService.updateVeiculo(veiculo,id);
+		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteVeiculo(@PathVariable("id") Long id){
+		logger.info("DELETE > /veiculos/"+id);
+		this.veiculoService.delete(id);
+		return ResponseEntity.ok().build();
 	}
 } 
