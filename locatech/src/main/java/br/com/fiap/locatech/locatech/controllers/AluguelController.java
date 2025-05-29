@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.locatech.locatech.dtos.AluguelRequestDTO;
 import br.com.fiap.locatech.locatech.entities.Aluguel;
 import br.com.fiap.locatech.locatech.services.AluguelService;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -37,7 +38,7 @@ public class AluguelController {
 	// http://localhost:8080/aluguels?page=1&size=10
 	@GetMapping
 	public ResponseEntity<List<Aluguel>> findAllAluguels(@RequestParam("page") int page,
-			@RequestParam("size") int size) {
+			 @Valid @RequestParam("size") int size) {
 		logger.info("Foi acessado o endpoint de aluguels /aluguels");
 		
 		var aluguels = this.aluguelService.finAllAluguels(page,size);
