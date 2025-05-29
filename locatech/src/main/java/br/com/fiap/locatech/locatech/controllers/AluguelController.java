@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.locatech.locatech.dtos.AluguelRequestDTO;
 import br.com.fiap.locatech.locatech.entities.Aluguel;
 import br.com.fiap.locatech.locatech.services.AluguelService;
 
@@ -53,7 +54,7 @@ public class AluguelController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> saveAluguel(@RequestBody Aluguel aluguel){
+	public ResponseEntity<Void> saveAluguel(@RequestBody AluguelRequestDTO aluguel){
 		logger.info("POST > /aluguels/");
 		this.aluguelService.saveAluguel(aluguel);
 		return ResponseEntity.status(201).build();
